@@ -3,10 +3,10 @@ import { Link } from "react-router"
 export const MainPart = () => {
 
     const routes = [
+        { path: '#section-experiences', label: 'Experiencias' },
+        { path: '#testimonials-section', label: 'Reseñas' },
         { path: '/near', label: 'Lugares cercanos' },
         { path: '/guide', label: 'Guía de viaje' },
-        { path: '/values', label: 'Nuestros Valores' },
-        { path: '/experiences', label: 'Experiencias' },
     ]
 
     const handleMouseEnter = (index : number) => {
@@ -40,9 +40,15 @@ export const MainPart = () => {
                 onMouseLeave={() => handleMouseLeave(index)}
                 key={route.path} className="w-full relative">
                     <div className={`bg-simulated-${index} bg-white/25 absolute inset-0 w-0 transition-all duration-[350ms] -z-10`}/>
-                    <Link to={route.path} className="block py-3 px-4 mx-auto ">
+                    {route.path.startsWith('#') ? (
+                        <a href={route.path} className="block py-3 px-4 mx-auto ">
+                            <p className="text-left text-xl max-w-[13ch] ">{route.label}</p>    
+                        </a>
+                    ) : (
+                        <Link to={route.path} className="block py-3 px-4 mx-auto ">
                         <p className="text-left text-xl max-w-[13ch] ">{route.label}</p>
                     </Link>
+                    )}
                 </li>
             ))}
         </ul>

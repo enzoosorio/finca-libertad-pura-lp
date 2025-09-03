@@ -1,3 +1,4 @@
+import { SectionForm } from "@/components/hero/SectionForm"
 import MainPart from "../../components/hero/MainPart"
 import SectionExperiencesCards from "../../components/hero/SectionExperiencesCards"
 import SectionMoreContent from "../../components/hero/SectionMoreContent"
@@ -10,6 +11,7 @@ export const Hero = () => {
    <SectionExperiencesCards/>
    <SectionMoreContent/>
    <SectionTestimonials/>
+   <SectionForm/>
    </main>
   )
 }

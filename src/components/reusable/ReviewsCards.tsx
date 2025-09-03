@@ -39,7 +39,7 @@ export const ReviewsCards = ({
     className={`relative min-w-[350px] hover:cursor-pointer min-h-[450px] md:basis-1/2 lg:basis-1/3 
     group
     ${flipCardIndex === index && flipCardIndex !== -1 ? "rotate-y-180" : "rotate-y-0"}
-    rounded-lg bg-white border border-black/15 shadow-xl
+    rounded-lg bg-white border-2 border-black/15 shadow-xl
     transform-3d transition-all duration-700`}>
         {/* front face */}
       <div className={`front-card-${index} flex flex-col items-center 

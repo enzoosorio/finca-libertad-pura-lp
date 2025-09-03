@@ -84,7 +84,9 @@ export const SectionTestimonials = () => {
   }, []);
 
   return (
-    <section className="py-16  flex flex-col font-body items-center gap-12">
+    <section 
+    id="testimonials-section"
+    className="py-16  flex flex-col font-body items-center gap-12">
       <h3 className="text-2xl lg:text-3xl font-semibold">
         Turistas y voluntarios
       </h3>
@@ -93,9 +95,9 @@ export const SectionTestimonials = () => {
         opts={{
           align: "start",
         }}
-        className=" w-full"
+        className=" w-full cursor-grab"
       >
-        <CarouselContent className="flex items-center justify-start pl-40 gap-4 w-full">
+        <CarouselContent className="flex items-center justify-start pl-28 ml-10 gap-4 w-full">
           {testimonial.map((t, index) => (
             <ReviewsCards
               key={t.nombre}
