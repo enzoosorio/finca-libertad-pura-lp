@@ -130,3 +130,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.clip-open{
+  clip-path: circle(106.2% at 50% 28.5%);
+}
+
+.clip-close{
+  clip-path: circle(36px at 50% 28.5%);
+}

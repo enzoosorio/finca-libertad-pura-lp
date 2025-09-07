@@ -1,17 +1,31 @@
 import { Link } from "react-router"
+import { useLocation } from "react-router";
+import { useState } from "react";
 
-export const MainPart = () => {
+interface MainPartReusableProps {
+    srcMainImage : string;
+}
 
+export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
+
+    const location = useLocation();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    
     const routes = [
         { path: '/near', label: 'Cerca de la finca' },
         { path: '/guide', label: 'Guía de viaje' },
-        { path: '#section-experiences', label: 'Experiencias' },
-        { path: '#testimonials-section', label: 'Reseñas' },
+        { path: '/experiences', label: 'Experiencias' },
+        { path: '/reviews', label: 'Reseñas' },
     ]
+
+    const toggleMobileMenu = () => {
+        document.body.style.overflow = isMobileMenuOpen ? 'auto' : 'hidden';
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
 
     const handleMouseEnter = (index : number) => {
         const bgSimulated = document.querySelector(`.bg-simulated-${index}`);
-        if (bgSimulated) {
+        if (bgSimulated && location.pathname !== routes[index]?.path) {
             bgSimulated.classList.remove('w-0');
             bgSimulated.classList.add('w-full');
         }
@@ -19,21 +33,23 @@ export const MainPart = () => {
 
     const handleMouseLeave = (index : number) => {
         const bgSimulated = document.querySelector(`.bg-simulated-${index}`);
-        if (bgSimulated) {
+        if (bgSimulated && location.pathname !== routes[index]?.path) {
             bgSimulated.classList.remove('w-full');
             bgSimulated.classList.add('w-0');
         }
     };
 
+    
   return (
     <main className="relative min-h-[100dvh] w-full bg-center bg-cover">
-      <div className="absolute inset-0 bg-black/40 z-0" />
-      <img src="/images/Hero/finca-casa-dia.jpg" className='object-center object-cover w-full h-full absolute inset-0 -z-10' />
-      <nav className="absolute left-[13%] top-0 pt-6 h-full flex flex-col justify-start items-center gap-12 min-w-[175px]  bg-white/30 backdrop-blur-sm">
-        <Link to={"/"} className="cursor-pointer w-max h-max rounded-full">
-            <img src="/images/Hero/logo.webp" alt="Logo" className="w-28 rounded-full"/>
+      <div className="absolute  inset-0 bg-black/40 z-0" />
+      <img src={srcMainImage} className='object-center object-cover w-[100vw] h-[100dvh] absolute inset-0 -z-10 ' />
+      <nav className="absolute left-1/2 -translate-x-1/2 md:-translate-0 md:left-[13%] top-0 pt-6 h-max md:h-full flex flex-col justify-start items-center gap-12 min-w-[175px]  md:bg-white/30 md:backdrop-blur-sm">
+        <Link to={"/"} className={`cursor-pointer w-max h-max rounded-full ${location.pathname === "/" ? 'bg-black/15' : ''}`}>
+            <img src="/images/Hero/logo.webp" alt="Logo" className="w-28 rounded-full bg-white/15 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none"/>
         </Link>
-        <ul className="flex flex-col font-body items-center justify-between w-full py-4 gap-16 text-white text-sm">
+        {/* static list */}
+        <ul className="md:flex hidden flex-col font-body items-center justify-between w-full py-4 gap-16 text-white text-sm">
             {routes.map((route, index) => (
                 <li 
                 onMouseEnter={() => handleMouseEnter(index)}
@@ -45,7 +61,7 @@ export const MainPart = () => {
                             <p className="text-left text-xl max-w-[13ch] ">{route.label}</p>    
                         </a>
                     ) : (
-                        <Link to={route.path} className="block text-pretty font-roboto font-light py-3 px-4 mx-auto ">
+                        <Link to={route.path} className={`block text-pretty font-roboto font-light py-3 px-4 mx-auto ${location.pathname === route.path ? 'bg-white/30' : ''}`}>
                         <p className="text-left text-xl max-w-[13ch] ">{route.label}</p>
                     </Link>
                     )}
@@ -54,15 +70,80 @@ export const MainPart = () => {
         </ul>
       </nav>
 
-     <div className="absolute right-[80px] font-body bottom-1/12 min-w-[350px] min-h-[100px]  text-sm flex items-stretch">
-    <div className="flex flex-col items-start gap-2 bg-white/80 backdrop-blur-xl w-full p-4">
+      {/* container menu flotante con clip path */}
+       <div
+       onClick={toggleMobileMenu}
+       className={`md:hidden absolute inset-0 w-full h-full transition-all duration-500 ease-in-out
+        flex flex-col items-center justify-center 
+        gap-6 ${isMobileMenuOpen ? "clip-open bg-black/70 backdrop-blur-sm" : "bg-black/10 clip-close"}`}>
+        {/* Botón hamburguesa/cerrar - Siempre clickeable */}
+         <button 
+            onClick={toggleMobileMenu}
+            className="md:hidden absolute top-[25%] z-50 p-4 rounded-full cursor-pointer bg-white/40 backdrop-blur-sm transition-all duration-300 hover:bg-white/60"
+        >
+            {!isMobileMenuOpen ? (
+                // Ícono hamburguesa
+                <svg viewBox="0 0 36 28" fill="none" className="stroke-white w-8 h-8">
+                    <path d="M1 27H35" strokeWidth="2" strokeLinecap="square"/>
+                    <path d="M1 14H35" strokeWidth="2" strokeLinecap="square"/>
+                    <path d="M1 1H35" strokeWidth="2" strokeLinecap="square"/>
+                </svg>
+            ) : (
+                // Ícono X
+                <svg viewBox="0 0 24 24" fill="none" className="stroke-white w-8 h-8">
+                    <path d="M18 6L6 18" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M6 6l12 12" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+            )}
+        </button>
+        {/* Menú móvil */}
+         <div 
+         onClick={(e) => {
+             e.stopPropagation();
+        }}
+         className={`flex items-center absolute top-[37%] justify-center transition-all duration-700 ease-in-out ${
+                isMobileMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+            }`}>
+                <div className="bg-white/85 backdrop-blur-xl rounded-xs p-8  max-w-sm w-full">
+                    {/* Lista de navegación móvil */}
+                    <ul className="flex flex-col gap-4 text-center">
+                        {routes.map((route) => (
+                            <li key={route.path}>
+                                <Link 
+                                    to={route.path} 
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setIsMobileMenuOpen(false)
+                                    }}
+                                    className={`block font-roboto font-light text-lg py-4 px-6 rounded-sm transition-all duration-200 ${
+                                        location.pathname === route.path 
+                                            ? 'bg-black/80 text-white font-medium' 
+                                            : 'text-gray-900 hover:bg-black/15'
+                                    }`}
+                                >
+                                    {route.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+       </div>
+
+    {/* parte reservacion floating in absolute */}
+    <div className={`absolute left-1/2 -translate-x-1/2 right-auto md:left-auto md:-translate-0 
+        md:right-[80px] font-body bottom-1/12
+        md:min-w-[350px] min-h-[100px] text-sm flex md:items-stretch transition-all
+        ${isMobileMenuOpen ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100'}
+        `}>
+    <div className="hidden md:flex flex-col items-start gap-2 bg-white/80 backdrop-blur-xl w-full p-4">
         <p className="font-semibold text-xl">¡Reserva ahora!</p>
         <p className="w-32 text-xs font-roboto font-light">Sin terciarios, precio mínimo</p>
     </div>
     <div 
     onMouseEnter={() => handleMouseEnter(-1)}
     onMouseLeave={() => handleMouseLeave(-1)}
-    className="relative flex items-center gap-2 cursor-pointer group/groupReservation bg-white/40 backdrop-blur-md w-full p-4">
+    className="relative flex items-center  justify-center gap-2 cursor-pointer group/groupReservation bg-white/20 md:bg-white/40 backdrop-blur-md w-full p-4">
     <div className="bg-simulated--1 bg-white/55 absolute inset-0 w-0 transition-all duration-[350ms] -z-10 "/>
         {/* calendario svg */}
         <svg width="48" height="49" viewBox="0 0 48 49" fill="none" className="w-10 fill-white group-hover/groupReservation:fill-black transition-colors">
@@ -74,11 +155,11 @@ export const MainPart = () => {
         <path d="M22.3594 33.0031C22.3594 33.2063 22.3994 33.4074 22.4771 33.5951C22.5549 33.7828 22.6688 33.9533 22.8124 34.0969C22.9561 34.2406 23.1266 34.3545 23.3143 34.4322C23.502 34.51 23.7031 34.55 23.9062 34.55C24.1094 34.55 24.3105 34.51 24.4982 34.4322C24.6859 34.3545 24.8564 34.2406 25.0001 34.0969C25.1437 33.9533 25.2576 33.7828 25.3354 33.5951C25.4131 33.4074 25.4531 33.2063 25.4531 33.0031C25.4531 32.8 25.4131 32.5988 25.3354 32.4111C25.2576 32.2235 25.1437 32.0529 25.0001 31.9093C24.8564 31.7657 24.6859 31.6517 24.4982 31.574C24.3105 31.4962 24.1094 31.4562 23.9062 31.4562C23.7031 31.4562 23.502 31.4962 23.3143 31.574C23.1266 31.6517 22.9561 31.7657 22.8124 31.9093C22.6688 32.0529 22.5549 32.2235 22.4771 32.4111C22.3994 32.5988 22.3594 32.8 22.3594 33.0031Z"/>
         <path d="M31.3171 33.0031C31.3171 33.4134 31.4801 33.8068 31.7702 34.0969C32.0603 34.387 32.4538 34.55 32.864 34.55C33.2743 34.55 33.6677 34.387 33.9578 34.0969C34.2479 33.8068 34.4109 33.4134 34.4109 33.0031C34.4109 32.5929 34.2479 32.1994 33.9578 31.9093C33.6677 31.6192 33.2743 31.4562 32.864 31.4562C32.4538 31.4562 32.0603 31.6192 31.7702 31.9093C31.4801 32.1994 31.3171 32.5929 31.3171 33.0031Z"/>
         </svg>
-        <p className="text-white group-hover/groupReservation:text-black transition-colors">Reservar ahora</p>
+        <p className="text-white  group-hover/groupReservation:text-black transition-colors  w-max">Reservar ahora</p>
     </div>
     </div>
     </main>
   )
 }
 
-export default MainPart
+export default MainPartReusable
