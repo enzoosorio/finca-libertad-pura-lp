@@ -59,7 +59,7 @@ export const SectionExperiencesCards: React.FC = () => {
       
       // Imagen slide from left con spring
       .fromTo(imageRef.current, 
-        { x: -20, y: -30,opacity: 0, scale: 1.4 }, 
+        { x: 0, y: 0,opacity: 0, scale: 1.4 }, 
         { x: 0, y:0 ,opacity: 1, scale: 1, duration: 0.8, ease: "power2" }, 
         0.25
       )
@@ -85,6 +85,7 @@ export const SectionExperiencesCards: React.FC = () => {
         0.8
       )
     }
+
   }, [selectedExperience, isClosing])
 
   const handleCardClick = (index: number) => {
@@ -122,7 +123,7 @@ export const SectionExperiencesCards: React.FC = () => {
     
     // Imagen sale hacia la izquierda con spring
     .to(imageRef.current, 
-      { x: -100, opacity: 0, scale: 0.9, duration: 0.5, ease: "elastic.in(1, 0.5)" }, 
+      { x: 0, opacity: 0, scale: 0.9, duration: 0.5, ease: "elastic.in(1, 0.5)" }, 
       0.3
     )
     

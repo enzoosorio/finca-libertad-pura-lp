@@ -65,7 +65,7 @@ export const SectionMoreContent: React.FC = () => {
               </div>
             </div>
             <div className="md:relative w-full h-full overflow-hidden">
-              <img ref={img1Ref} className="absolute top-0 left-0 w-full min-h-[120%] object-cover" src="/images/Hero/toro-finca-dia.jpg" alt="" />
+              <img ref={img1Ref} className="absolute top-0 left-0 w-full min-h-[140%] object-cover" src="/images/Hero/toro-finca-dia.jpg" alt="" />
             </div>
           </div>
         </li>
