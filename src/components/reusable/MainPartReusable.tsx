@@ -1,13 +1,17 @@
 import { Link } from "react-router"
 import { useLocation } from "react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface MainPartReusableProps {
     srcMainImage : string;
 }
 
-export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
+gsap.registerPlugin(useGSAP);
 
+export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
+    const mainRef = useRef<HTMLElement>(null);
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     
@@ -39,13 +43,35 @@ export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
         }
     };
 
-    
+    useGSAP(() => {
+
+        // const navItems = gsap.utils.toArray('.nav-item');
+        // navItems.forEach((item, index) => {
+        //     const bgSimulated = item.querySelector(`.bg-simulated-${index}`);
+        // });
+
+        let tl = gsap.timeline();
+
+        tl.fromTo('.logo-logo', {opacity: 0}, 
+        {opacity: 1, duration: 1}, 0.10);
+        tl.fromTo('.nav-item', 
+        {opacity: 0}, 
+        {opacity: 1, duration: 1, stagger: 0.1}, 0.35);
+        tl.to('.reservation-bg-simulation',
+        {height: 0, duration: 0.8}, 1);
+
+    }, {
+    scope: mainRef,
+    })
+
   return (
-    <main className="relative min-h-[100dvh] w-full bg-center bg-cover">
+    <main 
+    ref={mainRef}
+    className="main-reusable relative min-h-[100dvh] w-full bg-center bg-cover">
       <div className="absolute  inset-0 bg-black/40 z-0" />
       <img src={srcMainImage} className='object-center object-cover w-[100vw] h-[100dvh] absolute inset-0 -z-10 ' />
       <nav className="absolute left-1/2 -translate-x-1/2 md:-translate-0 md:left-[13%] top-0 pt-6 h-max md:h-full flex flex-col justify-start items-center gap-12 min-w-[175px]  md:bg-white/30 md:backdrop-blur-sm">
-        <Link to={"/"} className={`cursor-pointer w-max h-max rounded-full ${location.pathname === "/" ? 'bg-black/15' : ''}`}>
+        <Link to={"/"} className={`logo-logo cursor-pointer w-max h-max rounded-full ${location.pathname === "/" ? 'bg-black/15' : ''}`}>
             <img src="/images/Hero/logo.webp" alt="Logo" className="w-28 rounded-full bg-white/15 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none"/>
         </Link>
         {/* static list */}
@@ -54,7 +80,7 @@ export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
                 <li 
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={() => handleMouseLeave(index)}
-                key={route.path} className="w-full relative">
+                key={route.path} className="nav-item w-full relative">
                     <div className={`bg-simulated-${index} bg-white/25 absolute inset-0 w-0 transition-all duration-[350ms] -z-10`}/>
                     {route.path.startsWith('#') ? (
                         <a href={route.path} className="block font-roboto font-light text-pretty py-3 px-4 mx-auto  ">
@@ -131,11 +157,23 @@ export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
        </div>
 
     {/* parte reservacion floating in absolute */}
-    <div className={`absolute left-1/2 -translate-x-1/2 right-auto md:left-auto md:-translate-0 
+    <div className={`reservation absolute left-1/2 -translate-x-1/2 right-auto md:left-auto md:-translate-0 
         md:right-[80px] font-body bottom-1/12
         md:min-w-[350px] min-h-[100px] text-sm flex md:items-stretch transition-all
         ${isMobileMenuOpen ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100'}
         `}>
+
+    {/* bg transparent for gsap effect */}
+    <div className={`reservation-bg-simulation overflow-hidden absolute left-1/2 -translate-x-1/2 right-auto md:left-auto md:-translate-0 
+        md:right-[0px] bottom-0  z-20 mask-b-from-bottom
+        md:min-w-[350px] h-[100px] w-full text-sm flex md:items-stretch transition-all
+        ${isMobileMenuOpen ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100'}
+        `}> 
+            <img src={srcMainImage} className="object-bottom mask-b-from-bottom absolute inset-0"/>
+            <div className="bg-black/40 absolute inset-0 backdrop-blur-lg"/>
+        </div>
+
+
     <div className="hidden md:flex flex-col items-start gap-2 bg-white/80 backdrop-blur-xl w-full p-4">
         <p className="font-semibold text-xl">¡Reserva ahora!</p>
         <p className="w-32 text-xs font-roboto font-light">Sin terciarios, precio mínimo</p>
