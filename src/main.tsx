@@ -8,6 +8,7 @@ import { LayoutLanding } from './app/layout/LayoutLanding.tsx';
 import { Hero } from "./app/routes/Hero.tsx";
 import { NotFound } from "./app/routes/NotFound.tsx";
 import { Experiences } from "./app/routes/Experiences.tsx";
+import { Reviews } from "./app/routes/Reviews.tsx";
 
 let router = createBrowserRouter([
   {
@@ -15,7 +16,8 @@ let router = createBrowserRouter([
     Component: LayoutLanding,
     children: [
       { index: true, Component: Hero },
-      {path: '/experiences', Component: Experiences}
+      {path: '/experiences', Component: Experiences},
+      {path: '/reviews', Component: Reviews},
     ],
   },
   {

@@ -42,7 +42,7 @@ export const SectionForm = () => {
             </form>
           </div>
           <div className="hidden md:flex items-center justify-center w-full h-full">
-            <img src="/images/Hero/finca-noche-cielo-estrellas.jpg" alt="" />
+            <img src="/images/Hero/finca-bicis.jpg" alt="" />
           </div>
         </section>
   )
