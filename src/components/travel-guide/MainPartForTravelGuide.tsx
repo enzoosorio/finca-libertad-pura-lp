@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { useLocation } from "react-router";
-import { useRef, useState } from "react";
+import {  useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
