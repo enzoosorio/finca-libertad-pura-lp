@@ -1,0 +1,10 @@
+<svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="ojo-end" d="M0.000302315 0.702491C0.000302315 3.04167 1.51502 5.46722 4.0003 5.46722C6.48558 5.46722 9 3.04167 9 0.702491C9 -0.914091 6.99932 2.6647 5.5 3.00564C4.16719 3.30872 4.24973 3.55941 3 3.00586C2.03857 2.58001 0.000302315 -1.63669 0.000302315 0.702491Z" fill="url(#paint0_radial_219_15)"/>
+<defs>
+<radialGradient id="paint0_radial_219_15" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1.9541 -2.12744) rotate(74.8258) scale(6.73473 6.58121)">
+<stop stopColor="#666666"/>
+<stop offset="0.75" stopColor="#111111"/>
+<stop offset="1"/>
+</radialGradient>
+</defs>
+</svg>

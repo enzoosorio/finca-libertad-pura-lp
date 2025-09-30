@@ -17,19 +17,22 @@ export const AllExperiences = () => {
       src: "/images/Hero/caballin.jpg",
       text: "Paseo a caballo",
       content: "Disfruta de un relajante paseo a caballo por los hermosos paisajes de la finca, explorando senderos rodeados de naturaleza y tranquilidad.",
-      value: "paseo_caballo"
+      value: "paseo_caballo",
+      cta_text: "Reserva tu paseo"
     },
     {
       src: "/images/Experiences/finca-naturaleza-dia.jpg",
       text: "Caminatas",
       content: "Explora diversos senderos naturales a pie, desde rutas cortas y fáciles hasta caminatas más desafiantes, todas ofreciendo vistas impresionantes y la oportunidad de conectar con la naturaleza.",
-      value: "caminatas"
+      value: "caminatas",
+      cta_text: "Explora los senderos"
     },
     {
       src: "/images/Experiences/camping-de-noche.jpg",
       text: "Camping",
       content: "Pasa la noche bajo las estrellas en nuestras áreas designadas para acampar, equipadas con comodidades básicas para una experiencia auténtica y confortable en medio de la naturaleza.",
-      value: "camping"
+      value: "camping",
+      cta_text: "Reserva tu lugar"
     },
   ];
 
@@ -38,19 +41,22 @@ export const AllExperiences = () => {
       src: "/images/Experiences/finca-noche-cielo-estrellas.jpg",
       text: "Atención personalizada",
       content: "Disfruta de una atención personalizada y cálida por parte de nuestro equipo, siempre dispuesto a ayudarte a tener la mejor experiencia posible durante tu visita a la finca.",
-      value: "atencion_personalizada"
+      value: "atencion_personalizada",
+      cta_text: "Conoce a nuestro equipo"
     },
     {
       src: "/images/Experiences/horse_perfil.webp",
       text: "Equinoterapia",
       content: "Experimenta los beneficios terapéuticos de la equinoterapia, una actividad que combina el contacto con caballos y técnicas de rehabilitación para mejorar el bienestar físico y emocional.",
-      value: "equinoterapia"
+      value: "equinoterapia",
+      cta_text: "Descubre la equinoterapia"
     },
     {
       src: "/images/Experiences/Finca-casa-2.png",
       text: "Hospedaje",
       content: "Relájate y descansa en nuestras cómodas instalaciones de hospedaje, diseñadas para ofrecerte una estancia agradable y memorable en un entorno natural.",
-      value: "hospedaje"
+      value: "hospedaje",
+      cta_text: "Reserva tu estadía"
     },
   ];
 
@@ -72,16 +78,16 @@ export const AllExperiences = () => {
       ".container-images-experiences-left",
       {
         y: "-120%",
-        ease: "power3.in",
+        ease: "linear",
       },
-      0.1
+      0.02
     ).to(
       ".container-images-experiences-right",
       { 
         y: "-120%", 
-        ease: "power3.in",
+        ease: "linear",
       },
-      0.15
+      0.05
     )
     .to(
         ".container-image-experience",
@@ -105,22 +111,39 @@ export const AllExperiences = () => {
 
   }, []);
 
-  useEffect(() => {
+  useGSAP(() => {
+    
+    // Reset button state immediately when experience changes
+    gsap.set(".content-experience button", {
+      y: 20,
+      opacity: 0
+    });
+
+    let tl = gsap.timeline(
+      {
+        scrollTrigger: {
+        trigger: ".section-container-experiences",
+        start: "15% 80%",
+        toggleActions: "play reverse play reverse",
+        end: "60% 20%",
+      }
+      }
+    );
 
     let split = new SplitText(".text-for-split", { type: "words" });
-    gsap.from(split.words, {
+    tl.from(split.words, {
       y: 20,
       opacity: 0,
       stagger: 0.06,
       duration: 0.6,
+      ease: "power2.out"
+    }, 0)
+    tl.to(".content-experience button", {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
       ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".section-container-experiences",
-        start: "15% 80%",
-        toggleActions: "play reverse play reverse",
-        end: "55% 20%",
-      }
-    })
+    }, "+=0.2" );
 
   }, [experienceSelected])
 
@@ -129,16 +152,18 @@ export const AllExperiences = () => {
     <section
     className="section-container-experiences relative overflow-hidden py-16 flex flex-col font-body items-center gap-12 h-[400vh] ">
       <div className="relative  content-container-experiences w-full h-[100vh] flex flex-col items-center gap-12">
-        <h3 className="text-2xl lg:text-2xl ">
+        <h3 className="text-2xl font-roboto font-light lg:text-2xl ">
           Todas las Experiencias
         </h3>
         <ExperiencesList experience={imagesLeft} experienceSelected={experienceSelected} isLeft={true} setExperienceSelected={setExperienceSelected} />        
         <ExperiencesList experience={imagesRight} experienceSelected={experienceSelected} isLeft={false} setExperienceSelected={setExperienceSelected} />
-        <div className="content-experience absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25%] min-h-80 flex flex-col items-center justify-center gap-6 z-50">
+        <div className="content-experience absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25%] min-h-80 flex flex-col items-center justify-center gap-8 z-50">
             <p className="text-for-split text-3xl font-light text-black text-center font-roboto px-4">
-              {experienceSelected ?  imagesLeft.concat(imagesRight).find(exp => exp.value === experienceSelected)?.content : "Elige una experiencia"}
+              {experienceSelected ?  imagesLeft.concat(imagesRight).find(exp => exp.value === experienceSelected)?.content : "Selecciona una experiencia para ver más detalles" }
             </p>
-
+            <button className={`bg-green-600 text-white font-roboto py-4 px-6 rounded-sm ${experienceSelected ? 'opacity-100 cursor-pointer' : 'opacity-0 cursor-auto hidden'}`}>
+              {experienceSelected ? imagesLeft.concat(imagesRight).find(exp => exp.value === experienceSelected)?.cta_text : "Selecciona una experiencia"}
+            </button>
         </div>
       </div>
     </section>

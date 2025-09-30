@@ -1,25 +1,32 @@
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { useLocation } from "react-router";
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/all";
+
+interface NavItem {
+    value: string;
+    label: string;
+}
 
 interface MainPartReusableProps {
     srcMainImage : string;
+    navInSameRoute?: NavItem[];
 }
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, SplitText);
 
-export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
+export const MainPartReusable = ({ srcMainImage, navInSameRoute }: MainPartReusableProps) => {
     const mainRef = useRef<HTMLElement>(null);
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    
+    const navigate = useNavigate();
     const routes = [
-        { path: '/near', label: 'Cerca de la finca' },
-        { path: '/guide', label: 'Guía de viaje' },
+        { path: '/travel-guide', label: 'Guía de viaje' },
         { path: '/experiences', label: 'Experiencias' },
         { path: '/reviews', label: 'Reseñas' },
+        { path: 'https://wa.me/573014123456', label: 'Contacto directo' },
     ]
 
     const toggleMobileMenu = () => {
@@ -44,12 +51,6 @@ export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
     };
 
     useGSAP(() => {
-
-        // const navItems = gsap.utils.toArray('.nav-item');
-        // navItems.forEach((item, index) => {
-        //     const bgSimulated = item.querySelector(`.bg-simulated-${index}`);
-        // });
-
         let tl = gsap.timeline();
 
         tl.fromTo('.logo-logo', {opacity: 0}, 
@@ -60,7 +61,17 @@ export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
         tl.to('.reservation-bg-simulation',
         {height: 0, duration: 0.8}, 1);
 
-    }, {
+        const splitNavRoutes = new SplitText(".nav-route p", { type: "words" });
+
+        tl.from(splitNavRoutes.words, {
+        y: 30,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 1
+        }, 1)
+
+    }
+    , {
     scope: mainRef,
     })
 
@@ -82,19 +93,35 @@ export const MainPartReusable = ({ srcMainImage }: MainPartReusableProps) => {
                 onMouseLeave={() => handleMouseLeave(index)}
                 key={route.path} className="nav-item w-full relative">
                     <div className={`bg-simulated-${index} bg-white/25 absolute inset-0 w-0 transition-all duration-[350ms] -z-10`}/>
-                    {route.path.startsWith('#') ? (
+                    {route.path.startsWith('#') || route.path.startsWith('https://wa.me/') ? (
                         <a href={route.path} className="block font-roboto font-light text-pretty py-3 px-4 mx-auto  ">
                             <p className="text-left text-xl max-w-[13ch] ">{route.label}</p>    
                         </a>
                     ) : (
-                        <Link to={route.path} className={`block text-pretty font-roboto font-light py-3 px-4 mx-auto ${location.pathname === route.path ? 'bg-white/30' : ''}`}>
+                        <button onClick={() => {
+                            navigate(route.path)
+                            window.scrollTo(0, 0);
+                        }} className={`block text-pretty w-full cursor-pointer font-roboto font-light py-3 px-4 mx-auto ${location.pathname === route.path ? 'bg-white/30' : ''}`}>
                         <p className="text-left text-xl max-w-[13ch] ">{route.label}</p>
-                    </Link>
+                    </button>
                     )}
                 </li>
             ))}
         </ul>
       </nav>
+
+      {/* Parte de navegacion de la misma ruta */}
+       <ul className="absolute md:right-[80px] top-20 flex flex-col items-end justify-center gap-12">
+        {navInSameRoute?.map((item, index) => (
+          <li className={`nav-route relative group`} key={index}>
+            <a href={`${item.value}`} className="relative block font-roboto font-light text-pretty mx-auto">
+            <div className={`absolute w-0 h-[2px] group-hover:w-full duration-[400ms] transition-all bottom-0  bg-white rounded-2xl `}/>
+              <p className="text-right py-2  text-white font-extralight text-xl max-w-[13ch] ">{item.label}</p>
+            </a>
+          </li>
+        ))}
+       </ul>
+
 
       {/* container menu flotante con clip path */}
        <div

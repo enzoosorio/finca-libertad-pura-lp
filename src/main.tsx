@@ -9,6 +9,7 @@ import { Hero } from "./app/routes/Hero.tsx";
 import { NotFound } from "./app/routes/NotFound.tsx";
 import { Experiences } from "./app/routes/Experiences.tsx";
 import { Reviews } from "./app/routes/Reviews.tsx";
+import { TravelGuide } from "./app/routes/travel-guide.tsx";
 
 let router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ let router = createBrowserRouter([
       { index: true, Component: Hero },
       {path: '/experiences', Component: Experiences},
       {path: '/reviews', Component: Reviews},
+      {path: '/travel-guide', Component: TravelGuide},
     ],
   },
   {

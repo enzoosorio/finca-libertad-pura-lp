@@ -2,7 +2,7 @@ import { CustomAnchor } from "../reusable/Anchor";
 
 export const Footer = () => {
   return (
-    <div className="h-full min-h-[190px] grid font-roboto font-light grid-cols-4 place-items-center p-2 px-4 lg:p-6 bg-white shadow-2xl text-black">
+    <div className="min-h-[250px] grid font-roboto font-light grid-cols-4 place-items-center p-2 px-4 lg:p-6 bg-white shadow-2xl text-black">
       <div className="flex flex-col items-start justify-start lg:p-2 pt-0 ">
         <img
           src="images/Hero/logo-horizontal.webp"
@@ -27,7 +27,7 @@ export const Footer = () => {
         {/* facebook */}
         <a
           href="https://web.facebook.com/p/Finca-Libertad-pura-100063689257510/"
-          className="absolute top-[18px] lg:top-2 left-4/12 lg:left-5/12 -translate-x-1/2"
+          className="absolute top-[18px] lg:top-6 left-4/12 lg:left-5/12 -translate-x-1/2"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -58,7 +58,7 @@ export const Footer = () => {
         <a
           href="https://www.instagram.com/fincalibertadpura/"
           target="_blank"
-          className="absolute top-[72px] lg:top-12 left-8/12 lg:left-7/12 -translate-x-1/2"
+          className="absolute top-[72px] lg:top-20 left-8/12 lg:left-7/12 -translate-x-1/2"
           rel="noopener noreferrer"
         >
           <svg
@@ -99,7 +99,7 @@ export const Footer = () => {
           href="https://www.worldpackers.com/es/locations/finca-libertad-pura"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute top-[120px] lg:top-20 left-4/12 lg:left-5/12 -translate-x-1/2"
+          className="absolute top-[120px] lg:top-32 left-4/12 lg:left-5/12 -translate-x-1/2"
         >
           <svg
             width="45"

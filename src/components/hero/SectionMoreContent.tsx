@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -8,8 +9,7 @@ export const SectionMoreContent: React.FC = () => {
   const img1Ref = useRef<HTMLImageElement | null>(null)
   const img2Ref = useRef<HTMLImageElement | null>(null)
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  useGSAP(() => {
       // helper to setup parallax on an image element and its container
       const setupParallax = (imgEl: HTMLImageElement, containerEl: HTMLElement) => {
         // ensure the image is taller than the container so it can move
@@ -36,12 +36,7 @@ export const SectionMoreContent: React.FC = () => {
         const container = img2Ref.current.parentElement as HTMLElement
         if (container) setupParallax(img2Ref.current, container)
       }
-    })
-
-    return () => {
-      ctx.revert()
-      ScrollTrigger.getAll().forEach((st: any) => st.kill())
-    }
+    
   }, [])
 
   return (
@@ -79,7 +74,7 @@ export const SectionMoreContent: React.FC = () => {
                   <span className="text-sm lg:text-lg font-roboto font-light">EXPERIENCIA CON</span>
                   <p className=" text-2xl lg:text-4xl font-semibold">CABALLOS</p>
                 </div>
-                <p className="xl:w-[60ch]  2xl:text-lg font-roboto font-light text-pretty tracking-wide ">Los caballos son el alma de nuestra finca. 
+                <p className="lg:w-[40ch] xl:w-[60ch]  font-roboto font-light text-pretty tracking-wide ">Los caballos son el alma de nuestra finca. 
                   Ofrecemos paseos a caballo entre montañas y paisajes verdes, 
                   ideales para quienes buscan desconectarse y sentir la libertad del campo. 
                   Además, ofrecemos equinoterapia, una actividad que une el contacto con la naturaleza y el poder sanador de los caballos. Esta experiencia está orientada tanto al bienestar físico como emocional, ayudando a mejorar la confianza, la concentración y la relajación de quienes la practican. Es un encuentro transformador que enriquece tanto a niños como adultos.

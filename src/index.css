@@ -9,6 +9,7 @@
   --font-display: "Oswald", sans-serif; 
   --font-body: "Gilda Display", sans-serif;
   --font-roboto: "Roboto Variable", sans-serif;
+  --breakpoint-xs: 22.5rem;
 }
 
 @theme inline {
@@ -132,9 +133,13 @@
 }
 
 .clip-open{
-  clip-path: circle(106.2% at 50% 28.5%);
+  clipPath: circle(106.2% at 50% 28.5%);
 }
 
 .clip-close{
-  clip-path: circle(36px at 50% 28.5%);
+  clipPath: circle(36px at 50% 28.5%);
+}
+
+.is-dragging{
+ cursor: grabbing;
 }

@@ -10,6 +10,7 @@ export const Hero = () => {
    <main className="overflow-x-hidden">
    <MainPartReusable
     srcMainImage="/images/Hero/finca-casa-dia.jpg"
+    navInSameRoute={[{ value: '#section-experiences', label: 'Experiencias' }, { value: '#section-more-content', label: 'Más contenido' }, { value: '#section-testimonials', label: 'Testimonios' }, { value: '#section-ubication', label: 'Ubicación' }, { value: '#section-form', label: 'Contáctanos' }]}
    />
    <SectionExperiencesCards/>
    <SectionMoreContent/>
