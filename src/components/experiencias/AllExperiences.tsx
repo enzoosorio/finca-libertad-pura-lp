@@ -5,6 +5,7 @@ import { SplitText } from "gsap/all";
 import { useEffect, useState } from "react";
 import { ExperiencesList } from "../reusable/ExperiencesList";
 import { CustomEase } from "gsap/CustomEase";
+import { ExperiencesListMobile } from "../reusable/ExperienceListMobile";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP, CustomEase, SplitText);
 
@@ -60,10 +61,14 @@ export const AllExperiences = () => {
     },
   ];
 
+  const totalImagesArr = imagesLeft.concat(imagesRight);
+
   // efectos GSAP
   useEffect(() => {
     
-    const tl = gsap.timeline({
+    let mm = gsap.matchMedia();
+
+    let tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".section-container-experiences",
         pin: ".content-container-experiences",
@@ -73,6 +78,8 @@ export const AllExperiences = () => {
         invalidateOnRefresh: true,
       },
     });
+
+    mm.add("(min-width: 1024px)", () => {
 
     tl.to(
       ".container-images-experiences-left",
@@ -99,6 +106,25 @@ export const AllExperiences = () => {
         },
         0.2
     );
+    });
+
+    mm.add("(max-width: 1023px)", () => {
+
+      const containerMobile = document.querySelector('.container-image-experience-mobile');
+      if (!containerMobile) return;
+
+      const containerWidth = containerMobile.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const distanceToMove = containerWidth - viewportWidth + 20; // +20 para un poco de margen
+
+      tl.to('.container-image-experience-mobile',{
+        
+        x: -distanceToMove,
+        ease: "linear",
+      }, 0.1);
+    });
+
+    
     
     return () => {
       tl.kill(); 
@@ -111,15 +137,17 @@ export const AllExperiences = () => {
 
   }, []);
 
-  useGSAP(() => {
-    
+  useGSAP(() => { 
     // Reset button state immediately when experience changes
     gsap.set(".content-experience button", {
       y: 20,
       opacity: 0
     });
 
-    let tl = gsap.timeline(
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      let tl = gsap.timeline(
       {
         scrollTrigger: {
         trigger: ".section-container-experiences",
@@ -144,6 +172,36 @@ export const AllExperiences = () => {
       duration: 0.6,
       ease: "power2.out",
     }, "+=0.2" );
+    });
+
+    mm.add("(max-width: 1023px)", () => {
+      let tl = gsap.timeline(
+      {
+        scrollTrigger: {
+        trigger: ".section-container-experiences",
+        start: "15% 80%",
+        toggleActions: "play reverse play reverse",
+        end: "bottom 20%",
+      }
+      }
+    );
+
+    let split = new SplitText(".text-for-split", { type: "words" });
+    tl.from(split.words, {
+      y: 20,
+      opacity: 0,
+      stagger: 0.06,
+      duration: 0.6,
+      ease: "power2.out"
+    }, 0)
+    tl.to(".content-experience button", {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      ease: "power2.out",
+    }, "+=0.2" );
+    });
+    
 
   }, [experienceSelected])
 
@@ -155,13 +213,14 @@ export const AllExperiences = () => {
         <h3 className="text-2xl font-roboto font-light lg:text-2xl ">
           Todas las Experiencias
         </h3>
-        <ExperiencesList experience={imagesLeft} experienceSelected={experienceSelected} isLeft={true} setExperienceSelected={setExperienceSelected} />        
-        <ExperiencesList experience={imagesRight} experienceSelected={experienceSelected} isLeft={false} setExperienceSelected={setExperienceSelected} />
-        <div className="content-experience absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25%] min-h-80 flex flex-col items-center justify-center gap-8 z-50">
-            <p className="text-for-split text-3xl font-light text-black text-center font-roboto px-4">
+        <ExperiencesList className="hidden lg:flex" experience={imagesLeft} experienceSelected={experienceSelected} isLeft={true} setExperienceSelected={setExperienceSelected} />        
+        <ExperiencesList className="hidden lg:flex" experience={imagesRight} experienceSelected={experienceSelected} isLeft={false} setExperienceSelected={setExperienceSelected} />
+        <ExperiencesListMobile className="flex lg:hidden" experience={totalImagesArr} experienceSelected={experienceSelected} isLeft={true} setExperienceSelected={setExperienceSelected} />
+        <div className="content-experience absolute bottom-28 xs:bottom-[20%]  lg:top-1/2 left-1/2 -translate-x-1/2 lg:-translate-y-1/2 w-11/12 lg:w-1/3 xl:w-1/4 min-h-56 lg:min-h-80 flex flex-col items-center justify-start lg:items-center lg:justify-center gap-6 xs:gap-8 xl:gap-12 z-50">
+            <p className="text-for-split xl:scale-120  text-pretty prose xs:prose-2xl font-light text-black text-center font-roboto px-4">
               {experienceSelected ?  imagesLeft.concat(imagesRight).find(exp => exp.value === experienceSelected)?.content : "Selecciona una experiencia para ver más detalles" }
             </p>
-            <button className={`bg-green-600 text-white font-roboto py-4 px-6 rounded-sm ${experienceSelected ? 'opacity-100 cursor-pointer' : 'opacity-0 cursor-auto hidden'}`}>
+            <button className={`bg-green-600 text-white xs:text-lg font-roboto py-3 px-4 lg:py-4 lg:px-6 rounded-sm ${experienceSelected ? 'opacity-100 cursor-pointer' : 'opacity-0 cursor-auto hidden'}`}>
               {experienceSelected ? imagesLeft.concat(imagesRight).find(exp => exp.value === experienceSelected)?.cta_text : "Selecciona una experiencia"}
             </button>
         </div>

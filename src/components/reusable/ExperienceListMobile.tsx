@@ -14,7 +14,7 @@ interface ExperiencesListProps {
   className?: string;
 }
 
-export const ExperiencesList = ({
+export const ExperiencesListMobile = ({
   experience,
   isLeft,
   experienceSelected,
@@ -32,17 +32,17 @@ export const ExperiencesList = ({
 
   return (
     <div
-      className={`${className} absolute container-image-experience ${
+      className={`${className} absolute container-image-experience-mobile ${
         isLeft
-          ? "top-40 left-[4%] container-images-experiences-left"
-          : "top-40 right-[4%] left-auto container-images-experiences-right"
-      }  flex flex-col items-center justify-around gap-12`}
+          ? "top-20 -left-0"
+          : "bottom-5 left-auto"
+      }  flex flex-row items-start justify-start ml-2 xs:ml-10  gap-12`}
     >
       {experience.map(({ src, text, value }, index) => (
         <div
           onClick={handleExperienceClick(value)}
           key={index}
-          className="group relative w-[90%] h-72 cursor-pointer aspect-video md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 2xl:w-[450px] 2xl:h-[350px] overflow-hidden rounded-xs shadow-lg"
+          className="group relative w-[300px] xs:w-[340px] h-72 cursor-pointer md:aspect-video md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 2xl:w-[450px] 2xl:h-[350px] overflow-hidden rounded-xs shadow-lg"
         >
           <img
             src={src}
@@ -58,9 +58,9 @@ export const ExperiencesList = ({
           ></div>
           <p
             className={`absolute bottom-12 left-1/2 -translate-x-1/2 text-xl transition-opacity 
-  duration-300 font-roboto text-white font-light z-30 ${
+  duration-300 font-roboto text-white font-light z-30 text-center ${
     experienceSelected === value
-      ? "opacity-100" // Seleccionado: texto visible estático
+      ? "opacity-100" 
       : "opacity-0 group-hover:opacity-100" // No seleccionado: hover normal
   }`}
           >

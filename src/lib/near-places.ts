@@ -15,7 +15,7 @@ export const places : Places[] = [
    {
         id: 1,
         place: "Hospedaje Finca Pura",
-        representativeImage: "/images/Travel-guide/casa-3d.png",
+        representativeImage: "/images/Travel-guide/icono-finca-3d.png",
         activities: ["Hospedaje"],
         distance:0,
         waysToGetThere: {

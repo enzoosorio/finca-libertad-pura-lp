@@ -390,7 +390,7 @@ function CaballoBallo() {
         <svg
           viewBox="0 0 407 547"
           fill="none"
-          className="w-16 h-16 md:w-24 md:h-24"
+          className="w-24 h-24 md:w-24 md:h-24"
         >
           <g id="caballo-down">
             <path
@@ -1365,7 +1365,7 @@ function CaballoBallo() {
 
         {/* caballo up */}
 
-        <svg width="32" height="72" viewBox="100 0 407 547" fill="none" className="hidden">
+        <svg viewBox="100 0 407 547" fill="none" className="hidden w-32 h-32 md:w-24 md:h-24">
           <g id="caballo-up">
             <g id="pelo-1" filter="url(#filter0_di_200_301)">
               <path

@@ -235,9 +235,9 @@ export const MainPartForTravelGuide = () => {
         </div>
 
         {/* parte reservacion floating in absolute */}
-        <div
-          className={`reservation-travel absolute left-1/2 -translate-x-1/2 right-auto md:left-auto md:-translate-0 
-        md:right-[80px] font-body bottom-1/12
+       <div
+        className={`reservation absolute left-1/2 -translate-x-1/2 right-auto md:left-auto md:-translate-0 
+        md:right-[80px] font-body bottom-2/12 md:bottom-1/12
         md:min-w-[350px] min-h-[100px] text-sm flex md:items-stretch transition-all
         ${
           isMobileMenuOpen
@@ -245,7 +245,7 @@ export const MainPartForTravelGuide = () => {
             : "pointer-events-auto opacity-100"
         }
         `}
-        >
+      >
           {/* bg transparent for gsap effect */}
           <div
             className={`reservation-bg-simulation-travel overflow-hidden absolute left-1/2 -translate-x-1/2 right-auto md:left-auto md:-translate-0 
@@ -294,6 +294,15 @@ export const MainPartForTravelGuide = () => {
             </p>
           </div>
         </div>
+        <button 
+      onClick={() => {
+        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+      }}
+      className="absolute cursor-pointer bottom-[8%] left-1/2 bg-transparent -translate-x-1/2 text-white text-sm font-roboto">
+        <svg width="39" height="20" viewBox="0 0 39 20" className="stroke-white fill-none stroke-2 animate-bounce">
+        <path d="M1.5 1.5L19.5 18L37.5 1.5"/>
+        </svg>
+      </button>
       </div>
     </div>
     // </div>

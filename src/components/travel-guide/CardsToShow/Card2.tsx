@@ -13,15 +13,15 @@ export const Card2 = () => {
         data-card-id="2"
         className="card w-full h-[90%] shadow-md ring ring-black/5 max-w-7xl px-12 py-4 rounded-4xl grid grid-cols-1 grid-rows-7 gap-6 p-4">
           {/* titulo */}
-          <h4 className="col-span-1 row-span-1 text-3xl font-roboto font-light text-center pt-6">
-            Prepara todo esto si quieres disfrutar todo el día en la finca:
+          <h4 className="col-span-1 row-span-1 text-base xs:text-2xl lg:text-3xl font-roboto font-light text-center pt-6">
+            Lugares cercanos a la finca
           </h4>
           {/* card horizontal 1 caballo vaca */}
           <div className="col-span-1 row-span-2 bg-white rounded-md shadow-lg p-6 flex flex-col items-center justify-center gap-4">
             {/* texto */}
             <div className="flex items-center justify-between px-4 w-full ">
               <CaballoBallo/>
-              <p>
+              <p className="text-xs xs:text-lg lg:text-3xl font-body font-light text-left lg:text-center text-pretty leading-normal flex-1 xs:w-1/2 px-4">
                 Cuidemos a nuestros animales queridos de la finca.
               </p>
               <Vaca/>
@@ -34,9 +34,6 @@ export const Card2 = () => {
               {nearestPlaces.map((place, index) => (
                 <PlaceCard key={index} place={place} />
               ))}
-              <div className="absolute w-full bottom-0 h-12 bg-black/50 backdrop-blur-sm inset-x-0">
-
-              </div>
             </div>
           </div>
         </div>

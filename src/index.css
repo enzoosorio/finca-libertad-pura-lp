@@ -2,6 +2,7 @@
 @import '@fontsource/gilda-display';
 @import '@fontsource-variable/roboto';
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -9,7 +10,7 @@
   --font-display: "Oswald", sans-serif; 
   --font-body: "Gilda Display", sans-serif;
   --font-roboto: "Roboto Variable", sans-serif;
-  --breakpoint-xs: 22.5rem;
+  --breakpoint-xs: 23rem;
 }
 
 @theme inline {

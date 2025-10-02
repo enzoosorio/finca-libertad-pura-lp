@@ -167,7 +167,7 @@ export const Card1 = ({ isMobile }: Card1Props) => {
           Cosas que debes tener en cuenta antes de tu visita...
         </h4>
         {/* card instruccion 1 vertical */}
-        <div className="lg:col-span-2 lg:row-span-5 flex-1 bg-white rounded-md shadow-lg p-6 px-8 md:px-6 flex flex-col items-center justify-center lg:justify-start gap-10 xs:gap-12 lg:gap-10">
+        <div className="lg:col-span-2 lg:row-span-5 flex-1 bg-white rounded-md shadow-lg p-6 px-8 md:px-6 flex flex-col items-center justify-center gap-10 xs:gap-12 lg:gap-10">
           {/* icono */}
           <img
             src="/images/Travel-guide/maleta-viaje.png"
