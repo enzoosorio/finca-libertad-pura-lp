@@ -40,7 +40,9 @@ export const SectionMoreContent: React.FC = () => {
   }, [])
 
   return (
-    <section className="py-12 font-body">
+    <section 
+    id='section-more-content'
+    className="py-12 font-body">
       <ul className="flex flex-col items-center p-0 ">
         <li className="relative w-full h-full mx-auto bg-[rgba(43,88,178,0.3)] overflow-hidden">
           <div className='w-full h-[550px] flex items-center justify-center  mx-auto'>

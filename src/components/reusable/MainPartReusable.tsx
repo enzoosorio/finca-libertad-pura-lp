@@ -94,7 +94,7 @@ export const MainPartReusable = ({
         src={srcMainImage}
         className="object-center object-cover w-[100vw] h-[100dvh] absolute inset-0 -z-10 "
       />
-      <nav className="absolute left-1/2 -translate-x-1/2 md:-translate-0 md:left-[13%] top-0 pt-6 h-max md:h-full flex flex-col justify-start items-center gap-12 min-w-[175px]  md:bg-white/30 md:backdrop-blur-sm">
+      <nav className="absolute left-1/2 z-20 -translate-x-1/2 md:-translate-0 md:left-[13%] top-0 pt-6 h-max md:h-full flex flex-col justify-start items-center gap-12 min-w-[175px]  md:bg-white/30 md:backdrop-blur-sm">
         <Link
           to={"/"}
           className={`logo-logo cursor-pointer w-max h-max rounded-full ${
@@ -170,8 +170,10 @@ export const MainPartReusable = ({
 
       {/* container menu flotante con clip path */}
       <div
-        onClick={toggleMobileMenu}
-        className={`md:hidden absolute inset-0 w-full h-full transition-all duration-500 ease-in-out
+        onClick={() => {
+          if (isMobileMenuOpen) toggleMobileMenu();
+        }}
+        className={`md:hidden absolute inset-0 w-full h-full z-0 transition-all duration-500 ease-in-out
         flex flex-col items-center justify-center 
         gap-6 ${
           isMobileMenuOpen
@@ -228,6 +230,8 @@ export const MainPartReusable = ({
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsMobileMenuOpen(false);
+                      document.body.style.overflow = "auto";
+
                     }}
                     className={`block font-roboto font-light text-lg py-4 px-6 rounded-sm transition-all duration-200 ${
                       location.pathname === route.path
@@ -312,7 +316,7 @@ export const MainPartReusable = ({
       onClick={() => {
         window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
       }}
-      className="absolute cursor-pointer bottom-[8%] left-1/2 bg-transparent -translate-x-1/2 text-white text-sm font-roboto">
+      className={`absolute cursor-pointer bottom-[8%] left-1/2 bg-transparent -translate-x-1/2 text-white text-sm font-roboto ${isMobileMenuOpen ? "-z-10" : "z-auto"}`}>
         <svg width="39" height="20" viewBox="0 0 39 20" className="stroke-white fill-none stroke-2 animate-bounce">
         <path d="M1.5 1.5L19.5 18L37.5 1.5"/>
         </svg>

@@ -15,9 +15,11 @@ export const SectionForm = () => {
     }
 
     return (
-    <section className="py-16 flex font-body items-center gap-12 bg-gray-200/60">
+    <section 
+    id="section-form"
+    className="py-16 flex font-body items-center gap-12 bg-gray-200/60">
           <div className="flex flex-col items-center justify-center p-2 w-full md:w-[60%] h-full gap-12">
-            <h4 className="text-xl lg:text-4xl font-semibold w-[80%]">¡Déjanos tus datos y entérate de las novedades!</h4>
+            <h4 className="prose-xl lg:prose-2xl  font-semibold w-[80%]">Recibe una invitación personalizada para visitar la finca</h4>
             <form className="flex flex-col w-[80%]  items-center justify-start gap-8">
                 <div className="flex flex-col w-full items-center justify-start gap-6">
                     <InputForm

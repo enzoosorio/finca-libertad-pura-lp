@@ -216,11 +216,11 @@ export const AllExperiences = () => {
         <ExperiencesList className="hidden lg:flex" experience={imagesLeft} experienceSelected={experienceSelected} isLeft={true} setExperienceSelected={setExperienceSelected} />        
         <ExperiencesList className="hidden lg:flex" experience={imagesRight} experienceSelected={experienceSelected} isLeft={false} setExperienceSelected={setExperienceSelected} />
         <ExperiencesListMobile className="flex lg:hidden" experience={totalImagesArr} experienceSelected={experienceSelected} isLeft={true} setExperienceSelected={setExperienceSelected} />
-        <div className="content-experience absolute bottom-28 xs:bottom-[20%]  lg:top-1/2 left-1/2 -translate-x-1/2 lg:-translate-y-1/2 w-11/12 lg:w-1/3 xl:w-1/4 min-h-56 lg:min-h-80 flex flex-col items-center justify-start lg:items-center lg:justify-center gap-6 xs:gap-8 xl:gap-12 z-50">
-            <p className="text-for-split xl:scale-120  text-pretty prose xs:prose-2xl font-light text-black text-center font-roboto px-4">
+        <div className="content-experience absolute bottom-16 xs:bottom-[20%]  lg:top-1/2 left-1/2 -translate-x-1/2 lg:-translate-y-1/2 w-11/12 lg:w-1/3 xl:w-1/4 min-h-56 lg:min-h-80 flex flex-col items-center justify-start lg:items-center lg:justify-center gap-6 xs:gap-8 xl:gap-12 z-50">
+            <p className="text-for-split xl:scale-120  text-pretty prose-sm xs:prose-xl lg:prose-2xl font-light text-black text-center font-roboto px-4">
               {experienceSelected ?  imagesLeft.concat(imagesRight).find(exp => exp.value === experienceSelected)?.content : "Selecciona una experiencia para ver más detalles" }
             </p>
-            <button className={`bg-green-600 text-white xs:text-lg font-roboto py-3 px-4 lg:py-4 lg:px-6 rounded-sm ${experienceSelected ? 'opacity-100 cursor-pointer' : 'opacity-0 cursor-auto hidden'}`}>
+            <button className={`bg-green-600 text-white text-xs xs:text-lg font-roboto py-2 px-3 xs:py-3 xs:px-4 lg:py-4 lg:px-6 rounded-sm ${experienceSelected ? 'opacity-100 cursor-pointer' : 'opacity-0 cursor-auto hidden'}`}>
               {experienceSelected ? imagesLeft.concat(imagesRight).find(exp => exp.value === experienceSelected)?.cta_text : "Selecciona una experiencia"}
             </button>
         </div>
